@@ -98,7 +98,7 @@ const Navbar = () => {
           >
             <img src={avatar} className="rounded-full w-8 h-8" alt="" />
             <p>
-              <span className="text-gray-400 text-14">Hi, </span>
+              <span className="text-gray-400 text-14"> Hi, </span>
               <span className="text-gray-400 font-bold ml-1 text-14">
                 Michael
               </span>
