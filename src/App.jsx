@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
-import {
-  Ecommerce,
-  Orders,
-  Calendar,
-  Employees,
-  Stacked,
-  Pyramid,
-  Customers,
-  Kanban,
-  Area,
-  Bar,
-  Pie,
-  Financial,
-  ColorMapping,
-  ColorPicker,
-  Editor,
-  Line,
-} from "./pages";
 
 import { useStateContext } from "./contexts/ContextProvider";
 import "./App.css";
+
+const Ecommerce = lazy(() => import("./pages/Ecommerce"));
+const Orders = lazy(() => import("./pages/Orders"));
+const Calendar = lazy(() => import("./pages/Calendar"));
+const Employees = lazy(() => import("./pages/Employees"));
+const Customers = lazy(() => import("./pages/Customers"));
+const Kanban = lazy(() => import("./pages/Kanban"));
+const ColorPicker = lazy(() => import("./pages/ColorPicker"));
+const Editor = lazy(() => import("./pages/Editor"));
+
+const Stacked = lazy(() => import("./pages/Charts/Stacked"));
+const Pyramid = lazy(() => import("./pages/Charts/Pyramid"));
+const Area = lazy(() => import("./pages/Charts/Area"));
+const Bar = lazy(() => import("./pages/Charts/Bar"));
+const Pie = lazy(() => import("./pages/Charts/Pie"));
+const Financial = lazy(() => import("./pages/Charts/Financial"));
+const ColorMapping = lazy(() => import("./pages/Charts/ColorMapping"));
+const Line = lazy(() => import("./pages/Charts/Line"));
 
 const App = () => {
   const {
@@ -70,32 +70,40 @@ const App = () => {
               </div>
               <div>
                 {themeSettings && <ThemeSettings />}
-                <Routes>
-                  {/* Dashboard */}
-                  <Route path="/" element={<Ecommerce />} />
-                  <Route path="/ecommerce" element={<Ecommerce />} />
+                <Suspense
+                  fallback={
+                    <center>
+                      <h3>...Loading</h3>
+                    </center>
+                  }
+                >
+                  <Routes>
+                    {/* Dashboard */}
+                    <Route path="/" element={<Ecommerce />} />
+                    <Route path="/ecommerce" element={<Ecommerce />} />
 
-                  {/* Pages */}
-                  <Route path="/orders" element={<Orders />} />
-                  <Route path="/employees" element={<Employees />} />
-                  <Route path="/customers" element={<Customers />} />
+                    {/* Pages */}
+                    <Route path="/orders" element={<Orders />} />
+                    <Route path="/employees" element={<Employees />} />
+                    <Route path="/customers" element={<Customers />} />
 
-                  {/* Apps */}
-                  <Route path="/kanban" element={<Kanban />} />
-                  <Route path="/editor" element={<Editor />} />
-                  <Route path="/calendar" element={<Calendar />} />
-                  <Route path="/color-picker" element={<ColorPicker />} />
+                    {/* Apps */}
+                    <Route path="/kanban" element={<Kanban />} />
+                    <Route path="/editor" element={<Editor />} />
+                    <Route path="/calendar" element={<Calendar />} />
+                    <Route path="/color-picker" element={<ColorPicker />} />
 
-                  {/* Charts  */}
-                  <Route path="/line" element={<Line />} />
-                  <Route path="/area" element={<Area />} />
-                  <Route path="/bar" element={<Bar />} />
-                  <Route path="/pie" element={<Pie />} />
-                  <Route path="/financial" element={<Financial />} />
-                  <Route path="/color-mapping" element={<ColorMapping />} />
-                  <Route path="/pyramid" element={<Pyramid />} />
-                  <Route path="/stacked" element={<Stacked />} />
-                </Routes>
+                    {/* Charts  */}
+                    <Route path="/line" element={<Line />} />
+                    <Route path="/area" element={<Area />} />
+                    <Route path="/bar" element={<Bar />} />
+                    <Route path="/pie" element={<Pie />} />
+                    <Route path="/financial" element={<Financial />} />
+                    <Route path="/color-mapping" element={<ColorMapping />} />
+                    <Route path="/pyramid" element={<Pyramid />} />
+                    <Route path="/stacked" element={<Stacked />} />
+                  </Routes>
+                </Suspense>
               </div>
             </div>
           </div>
@@ -106,5 +114,3 @@ const App = () => {
 };
 
 export default App;
-
-// Resume 3:26:10
